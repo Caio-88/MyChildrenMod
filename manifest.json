@@ -1,0 +1,10 @@
+{
+  "Name": "MyChildrenMod",
+  "Author": "CAIO SOUZA",
+  "Version": "1.0.0",
+  "Description": "Filhos aparecem sentados aleatoriamente na varanda ou perto da lagoa, compatível com Babies Take After Spouse e Unique Children Talk. SMAPI 4.3.2",
+  "UniqueID": "caio.mychildrenmod",
+  "EntryDll": "MyChildrenMod.dll",
+  "MinimumApiVersion": "4.3.2",
+  "UpdateKeys": []
+}
