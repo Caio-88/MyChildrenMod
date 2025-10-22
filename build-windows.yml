@@ -1,0 +1,37 @@
+name: Build MyChildrenMod (Windows)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Restore NuGet packages
+        run: nuget restore src/MyChildrenMod/MyChildrenMod.csproj
+
+      - name: Build (Release)
+        run: msbuild /p:Configuration=Release src\MyChildrenMod\MyChildrenMod.csproj
+
+      - name: Create zip artifact
+        run: |
+          mkdir output
+          copy src\MyChildrenMod\bin\Release\MyChildrenMod.dll output\
+          copy manifest.json output\
+          powershell -Command "Compress-Archive -Path output\\* -DestinationPath MyChildrenMod-built.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyChildrenMod-built
+          path: MyChildrenMod-built.zip
